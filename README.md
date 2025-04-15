@@ -2,19 +2,19 @@
 
 This will my log of changes to my SV08 3D printer.
 
-////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 **04-11-25**
 ////////////////////////////////////////////////////////
 
 Cut CPU fan shroud for the first step to quiet the noise.
 
-////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 **04-12-25**
 ////////////////////////////////////////////////////////
-
 CPU Fan PWM
 Modified printer.cfg 
 Fixed the pin to PA1 and changed the target temp to 75. At 60 it would run constantly run at just below 10% causing a high pitch noise.
+////////////////////////////////////////////////////////
 
 [temperature_fan CPUfan] # exhaust fan
 pin: PA1
@@ -33,12 +33,28 @@ pid_Ki: .5
 pid_Kd: 0.25     
 pid_deriv_time: 5.0
 
-////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 **04-13-25**
 ////////////////////////////////////////////////////////
-
 Added G-Code to my slicer to automatically turn off the LED at the end of a print.
+////////////////////////////////////////////////////////
 
 END_PRINT
 mainled_off
 
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+**04-13-25**
+////////////////////////////////////////////////////////
+LED's off at IDLE
+////////////////////////////////////////////////////////
+
+[gcode_macro _IDLE_TIMEOUT]
+gcode:
+    {% if printer.print_stats.state == "paused" %}
+      RESPOND TYPE=echo MSG="No operations in 10min!"
+    {% else %}
+     M84
+     TURN_OFF_HEATERS
+     mainled_off
+    {% endif %}
