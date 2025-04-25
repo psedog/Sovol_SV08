@@ -13,7 +13,7 @@ Cut CPU fan shroud for the first step to quiet the noise.
 ////////////////////////////////////////////////////////
 CPU Fan PWM
 Modified printer.cfg 
-Fixed the pin to PA1 and changed the target temp to 75. At 60 it would run constantly run at just below 10% causing a high pitch noise.
+Fixed the pin to PA1 and changed the target temp to 65. At 60 it would run constantly run at just below 10% causing a high pitch noise.
 ////////////////////////////////////////////////////////
 
 [temperature_fan CPUfan] # exhaust fan
@@ -23,7 +23,7 @@ max_power: 1.0
 min_temp: 0
 max_temp: 90
 hardware_pwm: true
-target_temp: 75
+target_temp: 65
 sensor_type: temperature_host
 max_speed: 1.0
 min_speed: 0
